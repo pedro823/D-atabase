@@ -54,16 +54,22 @@ void handle_command(Statement statement, database.Database!string db) {
 }
 
 void main() {
-    auto db = new database.Database!string;
+    auto mdb = new database.Database!string;
+    auto idb = new database.IndexedDatabase!string("/tmp/tmpdb.db");
     while (true) {
         print_prompt;
-        auto input = stdin.readln.strip;
+        auto input = stdin.readln;
         if (input.isEmpty) {
-            continue;
+            "\n".write;
+            break;
+        }
+        else {
+            input = input.strip;
         }
         try {
             auto parseResult = input.parse;
-            parseResult.handle_command(db);
+            parseResult.handle_command(mdb);
+            parseResult.handle_command(idb);
         }
         catch (ParseException ex) {
             ex.msg.writeln;

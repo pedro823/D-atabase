@@ -160,6 +160,8 @@ pure Statement parse(string line) {
 }
 
 unittest {
+    import std.stdio;
+
     assert(findMetaCommand(".exit") == MetaCommandResult.META_COMMAND_EXIT);
     assert(findMetaCommand("") == MetaCommandResult.META_COMMAND_NOT_FOUND);
     assert(findCommand(".exit") == CommandResult.COMMAND_NOT_FOUND);
@@ -168,4 +170,6 @@ unittest {
     assert(!isEmpty(" "));
     assert(isEmpty(null));
     // TODO make parser tests
+
+    "[DEBUG] Parser tests passed".writeln;
 }

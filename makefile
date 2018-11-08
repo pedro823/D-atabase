@@ -1,8 +1,12 @@
 .PHONY: clean
 UNITTEST:=""
 
-all: server.o parser.o database.o
+all: server run
+
+server: server.o parser.o database.o
 	dmd $^
+
+run:
 	./server
 
 unittest: server.o parser.o database.o
@@ -14,3 +18,6 @@ unittest: server.o parser.o database.o
 
 clean:
 	rm -f *.o server
+
+stresstest: stresstest.o
+	dmd $^
