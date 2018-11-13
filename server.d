@@ -71,7 +71,7 @@ void main() {
     import std.conv;
 
     auto idb = new database.IndexedDatabase!string("/tmp/tmpdb.db");
-    auto server = new TcpSocket();
+    auto server = new TcpSocket;
     server.setOption(SocketOptionLevel.SOCKET, SocketOption.REUSEADDR, true);
     server.bind(new InternetAddress(10000));
     server.listen(3);
