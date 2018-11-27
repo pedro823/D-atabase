@@ -8,7 +8,7 @@ const int BUFFER_SIZE = 4096;
 
 @safe
 void print_prompt() {
-    "simple_db> ".write;
+    "simple_db> ".write();
 }
 
 @safe
@@ -70,7 +70,8 @@ void main() {
     import core.thread;
     import std.conv;
 
-    auto idb = new database.IndexedDatabase!string("/tmp/tmpdb.db");
+    // auto idb = new database.IndexedDatabase!string("/tmp/tmpdb.db");
+    auto idb = new database.Database!string;
     auto server = new TcpSocket;
     server.setOption(SocketOptionLevel.SOCKET, SocketOption.REUSEADDR, true);
     server.bind(new InternetAddress(10000));
@@ -82,7 +83,8 @@ void main() {
         auto client = server.accept();
         new Thread({
             char[BUFFER_SIZE] buffer;
-
+            
+            "[INFO] client connected with IP = %s".writefln(client.remoteAddress.toString);
             while (true) {
                 send_prompt(client);
                 auto read = client.receive(buffer);

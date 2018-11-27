@@ -98,12 +98,12 @@ class IndexedDatabase(T) : Database!T {
             }
             else {
                 if (T value = cast(T) line) {
-                    value.writeln;
+                    "%s => %s".writefln(key, value);
                     indexes[key] = offset;
                 }
                 else {
                     // Warn, delete and continue
-                    writef("Key %s was deleted\n", key);
+                    writefln("Key %s was deleted", key);
                     indexes.remove(key);
                     key = null;
                 }
